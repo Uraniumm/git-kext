@@ -1,4 +1,7 @@
 # git-kext
+## How to use:
+* Download the .sh or .command script and launch it in terminal, all that's needed for usage instructions.
+
 ## Features:
 * git-pull from the hard-coded repos included in the script.
 * Automatically place and replace MacKernelSDK with kexts for compiling.
