@@ -3,7 +3,7 @@ cd "$(dirname "$0")"
 
 printf "\n"
 echo "============================================"
-echo "Uraniumm's multi-kext manager v1.0.4"
+echo "Uraniumm's multi-kext manager v1.0.5"
 echo "--------------------------------------------"
 echo "Yes - Clean MacKernelSDK" && echo "No - Continue to Update" && echo "All - Remove All and Re-Download" && echo "Quit - Exit"
 printf "\n"
@@ -41,7 +41,7 @@ case $input in
  ;;
     [aA][lL][lL]|[aA])
  echo -n "Removing all files..."
- find . -type d ! -name "update.sh" ! -name "." -maxdepth 1 | xargs rm -rf
+ find . -type d ! -name "update.sh" ! -name "." ! -name ".git" -maxdepth 1 | xargs rm -rf
  echo " Done."
  printf "\n"
 
