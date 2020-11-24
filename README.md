@@ -1,2 +1,14 @@
 # git-kext
-CLI tool to sync various kexts to their git repo's master branch. Some automated background noise to make editing them easier. A massive waste of time.
+##Features:
+* git-pull from the hard-coded repos included in the script.
+* Automatically place and replace MacKernelSDK with kexts for compiling.
+* Automatically compile and place the latest debug-Lilu kext in source folders.
+* Quickly clean directory, remove MacKernelSDK or everything at once for a clean reset.
+* Errors I haven't noticed yet and probably wont fix since I'll be the only one using this (kudos to you if you found this repo).
+* Fancy "UI" that I'll look back on later and think it's a cluttered mess.
+* Adderall crumbs left over in there somewhere.
+
+##Requirements:
+* Xcode (for Lilu building).
+* An internet connection.
+* Self-loathing tendencies to want to use this at all.
