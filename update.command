@@ -1,9 +1,9 @@
 #!/bin/bash
-cd "$(dirname "$0")"
+-cd "$(dirname "$0")"
 
 printf "\n"
 echo "============================================"
-echo "Uraniumm's multi-kext manager v1.0.5"
+echo "Uraniumm's multi-kext manager v1.0.8"
 echo "--------------------------------------------"
 echo "Yes - Clean MacKernelSDK" && echo "No - Continue to Update" && echo "All - Remove All and Re-Download" && echo "Quit - Exit"
 printf "\n"
@@ -12,7 +12,7 @@ read -r -p "Clean Directory? [Y/N/A/q] " input
 case $input in
     [yY][eE][sS]|[yY])
  echo -n "Removing MacKernelSDK..."
- find . -type d -name "MacKernelSDK" | xargs rm -rf
+ find . -type d -name "MacKernelSDK" | xargs rm -rf && rm -rf BUILD
  echo " Done."
  printf "\n"
 
@@ -41,7 +41,7 @@ case $input in
  ;;
     [aA][lL][lL]|[aA])
  echo -n "Removing all files..."
- find . -type d ! -name "update.sh" ! -name "." ! -name ".git" -maxdepth 1 | xargs rm -rf
+ find . -type d ! -name "update.sh" ! -name "update.command" ! -name "." ! -name ".git" -maxdepth 1 | xargs rm -rf
  echo " Done."
  printf "\n"
 
@@ -255,6 +255,55 @@ case $input in
  exit 1
  ;;
 esac
+
+printf "\n"
+echo "--------------------------------------------"
+echo "Debug - Build all kexts w/ Debug configuration" && echo "Release - Build all kexts w/ Release configuration" && echo "No - Exit the program" && echo "Quit - Quit the program"
+printf "\n"
+read -r -p "Build all kexts (Debug/Release)? [D/R/N/q] " input
+
+case $input in
+    [dD][eE][bB][uU][gG]|[dD]|[yY])
+ echo "Building all Debug targets (this will take some time)..."
+ find . -type d -name "*.xcodeproj" -maxdepth 2 | xargs -I{} -n1 bash -c 'xcodebuild -project {} -alltargets -configuration Release -quiet;echo "::> Building  {} ..." | cut -d "/" -f1,3 | cut -d "." -f1,2,4-6 | cut -c1-12,14,17- '
+ echo "Done."
+ echo -n "Copying files..."
+ if [[ ! -d BUILD/Debug/ ]]
+   then
+   mkdir -p BUILD/Debug
+ fi
+ find . -type d -mindepth 2 -name "build" | xargs -I{} -n1 bash -c 'find {} -type d -maxdepth 3 -name "*.kext"' | xargs -I% -n1 bash -c 'cp -r % BUILD/Debug'
+ echo " Done."
+ ;;
+    [rR][eE][lL][eE][aA][sS][eE]|[rR])
+ echo "Building all Release targets (this will take some time)..."
+ find . -type d -name "*.xcodeproj" -maxdepth 2 | xargs -I{} -n1 bash -c 'xcodebuild -project {} -alltargets -configuration Release -quiet;echo "::> Building  {} ..." | cut -d "/" -f1,3 | cut -d "." -f1,2,4-6 | cut -c1-12,14,17- '
+ echo "Done."
+ echo -n "Copying files..."
+ if [[ ! -d BUILD/Release/ ]]
+   then
+   mkdir -p BUILD/Release
+ fi
+ find . -type d -mindepth 2 -name "build" | xargs -I{} -n1 bash -c 'find {} -type d -maxdepth 3 -name "*.kext"' | xargs -I% -n1 bash -c 'cp -r % BUILD/Release'
+ echo " Done."
+ ;;
+    [nN][oO]|[nN])
+ ;;
+    [qQ][uU][iI][tT]|[qQ])
+ printf "\n"
+ echo "Thanks for using this waste of time!" && echo "https://github.com/Uraniumm"
+ echo "============================================"
+ printf "\n" && exit 0
+ ;;
+    *)
+ echo "Invalid input..."
+ printf "\n"
+ echo "Thanks for using this waste of time!" && echo "https://github.com/Uraniumm"
+ echo "============================================"
+ exit 1
+ ;;
+esac
+
 printf "\n"
 echo "Thanks for using this time-sink of a tool" && echo "https://github.com/Uraniumm"
 echo "============================================"
