@@ -1,5 +1,5 @@
 # git-kext
-##Features:
+## Features:
 * git-pull from the hard-coded repos included in the script.
 * Automatically place and replace MacKernelSDK with kexts for compiling.
 * Automatically compile and place the latest debug-Lilu kext in source folders.
@@ -8,7 +8,7 @@
 * Fancy "UI" that I'll look back on later and think it's a cluttered mess.
 * Adderall crumbs left over in there somewhere.
 
-##Requirements:
+## Requirements:
 * Xcode (for Lilu building).
 * An internet connection.
 * Self-loathing tendencies to want to use this at all.
